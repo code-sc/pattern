@@ -12,6 +12,9 @@ class matrix:
             -row
             -col
             -M
+        
+        modules:
+            #-shape()
     """
     #CONSTRUCTOR
     def __init__(self,dim,num=1.0):
@@ -24,7 +27,7 @@ class matrix:
         mtxStr = "------------- output -------------\n"
         for i in range(self.row):
             mtxStr += ('|' + ', '.join(map(lambda x:'{0:8.3f}'.format(x),self.M[i])) + '| \n')
-        mtxStr += += '----------------------------------'
+        mtxStr += '----------------------------------'
         return mtxStr
     
     #MATRIX ADDITION WITH ANOTHER MATRIX AND A SCALAR
@@ -124,7 +127,8 @@ class matrix:
                 for i in range(self.row):
                     for j in range(other.col):
                         for k in range(self.col):
-                            ans.M[i][j] += self.M[i][k] * other[k][j]
+                            ans.M[i][j] += self.M[i][k] * other.M[k][j]
+                return ans
             else:
                 raise TypeError("Size mismatch for matrix multiplication")
         else:
@@ -145,4 +149,9 @@ class matrix:
             i = key[0]
             j = key[1]
             self.M[i][j] = value
+
+    #RETURN DIMENSION OF MATRIX
+    def shape(self):
+        """ Returns the shape of matrix as a tuple (row,column)"""
+        return (self.row,self.col)
             
